@@ -15,11 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\NC1TaskAPI.BLL\NC1TaskAPI.BLL.csproj" />
     <ProjectReference Include="..\NC1TaskAPI.DAL\NC1TaskAPI.DAL.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>

@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
 using NC1TaskAPI.DAL.EF;
+using NC1TaskAPI.DAL.Repos.Base;
 
-namespace NC1TaskAPI.BLL.Repos.Base;
+namespace NC1TaskAPI.DAL.Repos.Base;
 public class RepoBase<T> : IRepo<T> where T : class
 {
     private readonly bool _disposeContext;

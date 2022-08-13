@@ -18,4 +18,5 @@ public class ProgrammingLanguage
     [Required]
     [MinLength(2)]
     public string Name { get; set; }
+    public List<Employee> Employees { get; set; } = new();
 }

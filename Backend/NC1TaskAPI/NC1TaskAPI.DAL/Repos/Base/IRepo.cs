@@ -1,11 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace NC1TaskAPI.BLL.Repos.Base;
+namespace NC1TaskAPI.DAL.Repos.Base;
 public interface IRepo<T> : IDisposable where T : class
 {
     DbSet<T> Table { get; }
     int Add(T entity, bool persist = true);
     Task<int> AddAsync(T entity, bool persist = true);
+
+    T? Find(int id);
+    Task<T?> FindAsync(int id);
 
     int AddRange(IEnumerable<T> entities, bool persist = true);
     Task<int> AddRangeAsync(IEnumerable<T> entities, bool persist = true);

@@ -42,7 +42,9 @@ public class Employee
     public Gender Gender { get; set; }
 
     public Department Department { get; set; }
+    public int DepartmentId { get; set; }
     public ProgrammingLanguage Language { get; set; }
+    public int LanguageId { get; set; }
 }
 public enum Gender
 {
