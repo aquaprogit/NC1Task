@@ -12,15 +12,17 @@ public class Employee
         Age = 0;
         Gender = Gender.Male;
         Department = new Department();
+        Language = new ProgrammingLanguage();
     }
 
-    public Employee(string name, string surname, int age, Gender gender, Department department)
+    public Employee(string name, string surname, int age, Gender gender, Department department, ProgrammingLanguage language)
     {
         Name = name ?? throw new ArgumentNullException(nameof(name));
         Surname = surname ?? throw new ArgumentNullException(nameof(surname));
         Age = age;
         Gender = gender;
         Department = department ?? throw new ArgumentNullException(nameof(department));
+        Language = language;
     }
 
     [Key]
