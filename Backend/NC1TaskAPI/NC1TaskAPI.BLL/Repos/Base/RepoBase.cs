@@ -3,7 +3,7 @@
 using NC1TaskAPI.DAL.EF;
 
 namespace NC1TaskAPI.BLL.Repos.Base;
-internal class RepoBase<T> : IRepo<T> where T : class
+public class RepoBase<T> : IRepo<T> where T : class
 {
     private readonly bool _disposeContext;
     private bool _isDisposed;
