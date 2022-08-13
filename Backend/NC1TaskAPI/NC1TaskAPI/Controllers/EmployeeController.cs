@@ -14,6 +14,11 @@ public class EmployeeController : ControllerBase
         _employeeService = employeeService;
     }
 
+    [HttpGet("[action]/")]
+    public async Task<IActionResult> GetAll()
+    {
+        return Ok(await _employeeService.GetAllEmployees());
+    }
     [HttpGet("[action]/{id}")]
     public async Task<IActionResult> Get(int id)
     {
@@ -22,7 +27,19 @@ public class EmployeeController : ControllerBase
     [HttpPost("[action]/")]
     public async Task<IActionResult> AddNew([FromBody] NewEmployeeDTO employee)
     {
-        //await _employeeService.AddEmployee(employee);
+        await _employeeService.AddEmployee(employee);
+        return Ok();
+    }
+    [HttpDelete("[action]/{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        await _employeeService.DeleteEmployee(id);
+        return Ok();
+    }
+    [HttpPut("[action]/")]
+    public async Task<IActionResult> Put([FromBody] EmployeeDTO employee)
+    {
+        await _employeeService.PutEmployee(employee);
         return Ok();
     }
 }

@@ -8,7 +8,7 @@ public class EmployeeProfile : Profile
 {
     public EmployeeProfile()
     {
-        CreateMap<Employee, NewDepartmentDTO>().ReverseMap();
+        CreateMap<Employee, NewEmployeeDTO>().ReverseMap();
         CreateMap<Employee, DisplayEmployeeDTO>().ReverseMap();
         CreateMap<Employee, EmployeeDTO>().ReverseMap();
     }

@@ -22,12 +22,30 @@ public class EmployeeService : IEmployeeService
         _mapper = mapper;
     }
 
-    public async Task<NewEmployeeDTO> GetEmployee(int id)
+    public async Task<List<DisplayEmployeeDTO>> GetAllEmployees()
     {
-        return _mapper.Map<NewEmployeeDTO>(await _repo.FindAsync(id));
+        return await Task.Run(() => _repo.GetAll().Select(emp => _mapper.Map<DisplayEmployeeDTO>(emp)).ToList());
     }
-    public async Task AddEmployee(EmployeeDTO employee)
+    public async Task<DisplayEmployeeDTO> GetEmployee(int id)
+    {
+        return _mapper.Map<DisplayEmployeeDTO>(await _repo.FindAsync(id));
+    }
+    public async Task AddEmployee(NewEmployeeDTO employee)
     {
         await _repo.AddAsync(_mapper.Map<Employee>(employee));
+    }
+    public async Task<bool> DeleteEmployee(int id)
+    {
+        var employee = await _repo.FindAsync(id);
+        return employee != null && _repo.Delete(employee) > 0;
+    }
+    public async Task PutEmployee(EmployeeDTO employee)
+    {
+        var mapped = _mapper.Map<Employee>(employee);
+        var same = _repo.Table.SingleOrDefault(emp => emp.Id == mapped.Id);
+        if (same == null)
+            await _repo.AddAsync(mapped);
+        else
+            _repo.Update(mapped);
     }
 }
