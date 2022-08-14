@@ -15,7 +15,7 @@ builder.Services.AddDbContext<ApplicationContext>();
 //Repositories
 builder.Services.AddScoped<IEmployeeRepo, EmployeeRepo>();
 builder.Services.AddScoped<IDepartmentRepo, DepartmentRepo>();
-builder.Services.AddScoped<IProgrammingLanguageRepo, ProgrammingLanguageRepo>();
+builder.Services.AddScoped<ILanguageRepo, LanguageRepo>();
 
 //Services
 builder.Services.AddScoped<IEmployeeService, EmployeeService>(); 
