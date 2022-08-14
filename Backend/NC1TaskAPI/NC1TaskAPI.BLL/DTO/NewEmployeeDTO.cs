@@ -7,6 +7,6 @@ public class NewEmployeeDTO
     public string Surname { get; set; } = string.Empty;
     public int Age { get; set; } = 1;
     public Gender Gender { get; set; } = Gender.Male;
-    public string DepartmentName { get; set; } = string.Empty;
-    public string LanguageName { get; set; } = string.Empty;
+    public int DepartmentId { get; set; }
+    public int LanguageId { get; set; }
 }
