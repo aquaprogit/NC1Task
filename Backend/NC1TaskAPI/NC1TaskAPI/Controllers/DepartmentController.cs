@@ -11,12 +11,10 @@ namespace NC1TaskAPI.Controllers;
 public class DepartmentController : ControllerBase
 {
     private readonly IDepartmentService _departmentService;
-    private readonly IMapper _mapper;
 
-    public DepartmentController(IDepartmentService departmentService, IMapper mapper)
+    public DepartmentController(IDepartmentService departmentService)
     {
         _departmentService = departmentService ?? throw new ArgumentNullException(nameof(departmentService));
-        _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
     }
     [HttpPost("[action]/")]
     public async Task<IActionResult> AddNew([FromBody] NewDepartmentDTO department)
