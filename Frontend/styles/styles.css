@@ -41,3 +41,8 @@ select {
     width: 250px;
     font-size: 20px;
 }
+
+.submit-button {
+    width: auto;
+    padding: 5px 55px;
+}
