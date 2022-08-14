@@ -46,3 +46,15 @@ select {
     width: auto;
     padding: 5px 55px;
 }
+
+.cancel-button {
+    color: black;
+    padding: 10px 20px;
+    transition: .2s;
+    text-decoration: none;
+}
+
+.cancel-button:hover {
+    color: white;
+    background-color: rgba(255, 144, 96, 0.642);
+}
