@@ -24,7 +24,7 @@ public class EmployeeService : IEmployeeService
 
     public async Task<List<DisplayEmployeeDTO>> GetAllEmployees()
     {
-        return await Task.Run(() => _repo.GetAll().Select(emp => _mapper.Map<DisplayEmployeeDTO>(emp)).ToList());
+        return await Task.Run(() => _mapper.Map<IEnumerable<DisplayEmployeeDTO>>(_repo.GetAll()).ToList());
     }
     public async Task<DisplayEmployeeDTO> GetEmployee(int id)
     {
