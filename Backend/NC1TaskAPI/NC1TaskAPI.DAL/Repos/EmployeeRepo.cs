@@ -13,4 +13,8 @@ public class EmployeeRepo : RepoBase<Employee>, IEmployeeRepo
     {
         return Table.Include(emp => emp.Language).Include(emp => emp.Department);
     }
+    public override Task<Employee?> FindAsync(int id)
+    {
+        return Table.Include(emp => emp.Language).Include(emp => emp.Department).SingleOrDefaultAsync(emp => emp.Id == id);
+    }
 }
