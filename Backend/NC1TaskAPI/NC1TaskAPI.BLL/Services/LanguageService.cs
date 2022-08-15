@@ -37,10 +37,15 @@ public class LanguageService : ILanguageService
     public async Task PutLanguage(LanguageDTO language)
     {
         var mapped = _mapper.Map<ProgrammingLanguage>(language);
-        var same = _repo.Table.SingleOrDefault(lang => lang.Id == mapped.Id);
+        var same = await _repo.FindAsync(mapped.Id);
         if (same == null)
+        {
             await _repo.AddAsync(mapped);
+        }
         else
-            _repo.Update(mapped);
+        {
+            same.Name = mapped.Name;
+            _repo.Update(same);
+        }
     }
 }

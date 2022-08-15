@@ -10,6 +10,6 @@ public class EmployeeProfile : Profile
     {
         CreateMap<NewEmployeeDTO, Employee>();
         CreateMap<Employee, DisplayEmployeeDTO>().ForMember(emp => emp.GenderValue, opt => opt.MapFrom(source => source.Gender.ToString()));    
-        CreateMap<Employee, EmployeeDTO>();
+        CreateMap<Employee, EmployeeDTO>().ReverseMap();
     }
 }

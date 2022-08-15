@@ -36,8 +36,7 @@ public class LanguageController : ControllerBase
     [HttpDelete("[action]/{id}")]
     public async Task<IActionResult> Delete(int id)
     {
-        await _languageService.DeleteLanguage(id);
-        return Ok();
+        return await _languageService.DeleteLanguage(id) ? Ok() : NotFound();
     }
     [HttpPut("[action]/")]
     public async Task<IActionResult> Put([FromBody] LanguageDTO language)

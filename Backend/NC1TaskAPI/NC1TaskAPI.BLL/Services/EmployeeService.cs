@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 using AutoMapper;
 
+using Microsoft.EntityFrameworkCore;
+
 using NC1TaskAPI.BLL.DTO;
 using NC1TaskAPI.BLL.Services.Interfaces;
 using NC1TaskAPI.DAL.Entities;
@@ -49,7 +51,13 @@ public class EmployeeService : IEmployeeService
         }
         else
         {
-            
+            same.Name = employee.Name;
+            same.Surname = employee.Surname;
+            same.Age = employee.Age;
+            same.Gender = employee.Gender;
+            same.DepartmentId = employee.DepartmentId;
+            same.LanguageId = employee.LanguageId;
+            _repo.Table.Include(emp => emp.Department).Include(emp => emp.Language);
             _repo.Update(same);
         }
     }

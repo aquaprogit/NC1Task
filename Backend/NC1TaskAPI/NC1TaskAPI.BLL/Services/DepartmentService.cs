@@ -43,6 +43,8 @@ public class DepartmentService : IDepartmentService
         }
         else
         {
+            same.Floor = department.Floor;
+            same.Name = department.Name;
             _repo.Update(same);
         }
     }

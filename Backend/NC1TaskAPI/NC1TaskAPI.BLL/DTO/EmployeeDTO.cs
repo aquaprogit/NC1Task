@@ -19,4 +19,6 @@ public class EmployeeDTO
     [Range(14, int.MaxValue)]
     public int Age { get; set; } = 1;
     public Gender Gender { get; set; } = Gender.Male;
+    public int DepartmentId { get; set; }
+    public int LanguageId { get; set; }
 }

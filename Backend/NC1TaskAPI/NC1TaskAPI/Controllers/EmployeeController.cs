@@ -27,19 +27,32 @@ public class EmployeeController : ControllerBase
     [HttpPost("[action]/")]
     public async Task<IActionResult> AddNew([FromBody] NewEmployeeDTO employee)
     {
-        await _employeeService.AddEmployee(employee);
-        return Ok();
+        try
+        {
+            await _employeeService.AddEmployee(employee);
+            return Ok();
+        }
+        catch (Exception)
+        {
+            return BadRequest(employee);
+        }
     }
     [HttpDelete("[action]/{id}")]
     public async Task<IActionResult> Delete(int id)
     {
-        await _employeeService.DeleteEmployee(id);
-        return Ok();
+        return await _employeeService.DeleteEmployee(id) ? Ok() : NotFound();
     }
     [HttpPut("[action]/")]
     public async Task<IActionResult> Put([FromBody] EmployeeDTO employee)
     {
-        await _employeeService.PutEmployee(employee);
-        return Ok();
+        try
+        {
+            await _employeeService.PutEmployee(employee);
+            return Ok();
+        }
+        catch (Exception)
+        {
+            return BadRequest(employee);
+        }
     }
 }
