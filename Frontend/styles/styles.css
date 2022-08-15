@@ -58,3 +58,45 @@ select {
     color: white;
     background-color: rgba(255, 144, 96, 0.642);
 }
+
+table {
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    display: inline;
+    table-layout: fixed;
+}
+
+table tr {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    padding: .35em;
+}
+
+table th,
+table td {
+    padding: .625em;
+    text-align: center;
+}
+
+table th {
+    font-size: .85em;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
+
+.action-column {
+    width: 50px;
+}
+
+td input {
+    width: 100px;
+    background-color: transparent;
+    border: none;
+}
+
+td input:hover {
+    background-color: slategrey;
+    border: .3px solid black;
+}
