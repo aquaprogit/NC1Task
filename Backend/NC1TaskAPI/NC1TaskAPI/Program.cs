@@ -7,6 +7,7 @@ using NC1TaskAPI.DAL.Repos.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors();
 //Mappers
 builder.Services.AddAutoMapper(typeof(EmployeeProfile));
 //DB Context
@@ -18,7 +19,7 @@ builder.Services.AddScoped<IDepartmentRepo, DepartmentRepo>();
 builder.Services.AddScoped<ILanguageRepo, LanguageRepo>();
 
 //Services
-builder.Services.AddScoped<IEmployeeService, EmployeeService>(); 
+builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IDepartmentService, DepartmentService>();
 
 
@@ -30,13 +31,24 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+app.UseCors(builder => builder
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseRouting();
+
+
+
 app.UseAuthorization();
+
 app.MapControllers();
 
 app.Run();
