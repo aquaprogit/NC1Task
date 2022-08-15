@@ -9,7 +9,7 @@
 <body onload="loading()">
     <div class="container">
         <h3>Employee data changes</h3>
-        <form>
+        <form id="edit-form">
             <div>
                 <p class="input-title">Name:</p><input id="name" name="name" type="text" /></div>
             <div>
@@ -31,13 +31,10 @@
             <div>
                 <p class="input-title">Programming language:</p>
                 <select id="languageName" name="languageName">
-                    <option>Value1</option><option>Value2</option>
-                    <option>Value3</option><option selected>Value4</option>
-                    <option>Value5</option>
                 </select>
             </div>
             <div>
-                <input type="submit" class="submit-button" value="EDIT">
+                <input type="button" class="submit-button" onclick="sumbitChanges()" value="EDIT">
                 <a class="cancel-button" href="../index.html">Cancel</a>
             </div>
         </form>

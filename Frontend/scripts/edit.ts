@@ -31,42 +31,86 @@ async function getApi<T>(url: string): Promise<T> {
         if (!response.ok) {
             console.log(response);
         }
-        return response.json();
+        else {
+            return response.json();
+        }
     });
 }
+async function postData(url: string, data: string): Promise<any> {
+    return await fetch(url, {
+        method: 'PUT', body: data, headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Access-Control-Allow-Headers': 'Content-Type',
+        }
+    }).then((response) => {
+        if (!response.ok)
+            console.log(response);
+        else
+            return response.json();
+    });
+}
+var currentEmployee: Employee;
 var departments: Department[] = [];
 var languages: Language[] = [];
+var nameField: HTMLInputElement
+var surnameField: HTMLInputElement
+var ageField: HTMLInputElement
+
+var genderField: HTMLSelectElement;
+var departmentField: HTMLSelectElement;
+var languageField: HTMLSelectElement;
 async function loading(): Promise<void> {
     let url_string = window.location.href;
     let url = new URL(url_string);
 
-    await getApi<Department[]>('https://localhost:7080/Department/GetAll/').then(res => {
-        departments = res;
-        console.log(departments);
-    });
-    await getApi<Language[]>('https://localhost:7080/Language/GetAll/').then(res => {
-        languages = res;
-        console.log(languages);
-    })
-    const currentEmployeeId = parseInt(url.searchParams.get("id") ?? "-1");
-    console.log('current employee\'s id: ' + currentEmployeeId);
-    var currentEmployee = await getEmployeeById(currentEmployeeId);
-    let nameField = document.getElementById('name') as HTMLInputElement;
-    let surnameField = document.getElementById('surname') as HTMLInputElement;
-    let ageField = document.getElementById('age') as HTMLInputElement;
-    let genderField = document.getElementById('genderValue') as HTMLSelectElement;
-    let departmentField = document.getElementById('departmentName') as HTMLSelectElement;
-    let languageField = document.getElementById('languageName') as HTMLSelectElement;
 
-    departments.forEach(element => {
-        let option = document.createElement('option');
-        option.text = element.name;
-        option.value = element.id.toString();
-        if (currentEmployee.departmentName == element.name)
-            option.selected = true;
-        departmentField.appendChild(option);
-    });
+    console.log('current employee\'s id: ' + parseInt(url.searchParams.get("id") ?? "-1"));
+    currentEmployee = await getEmployeeById(parseInt(url.searchParams.get("id") ?? "-1"));
 
+    nameField = document.getElementById('name') as HTMLInputElement;
+    surnameField = document.getElementById('surname') as HTMLInputElement;
+    ageField = document.getElementById('age') as HTMLInputElement;
+    genderField = document.getElementById('genderValue') as HTMLSelectElement;
+    departmentField = document.getElementById('departmentName') as HTMLSelectElement;
+    languageField = document.getElementById('languageName') as HTMLSelectElement;
+
+    await fillDepartments(currentEmployee, departmentField);
+    await fillLanguages(currentEmployee, languageField);
+
+    nameField.value = currentEmployee.name;
+    surnameField.value = currentEmployee.surname;
+    ageField.value = currentEmployee.age.toString();
+    genderField.selectedIndex = currentEmployee.genderValue == 'Male' ? 0 : 1;
+}
+
+async function sumbitChanges() {
+    let data = new FormData();
+    data.set('id', currentEmployee.id.toString());
+    data.set('name', nameField.value);
+    data.set('surname', surnameField.value);
+    data.set('age', ageField.value);
+    data.set('gender', genderField.selectedIndex.toString());
+    data.set('departmentId', departmentField.options[departmentField.selectedIndex].value);
+    data.set('languageId', languageField.options[languageField.selectedIndex].value);
+    var object = new Map<string, any>();
+
+    alert();
+
+    await postData('https://localhost:7080/Employee/Put/', JSON.stringify(formToJSON(data))).then(res => {
+        console.log(res.json());
+    });
+    data.set('a', "a");
+}
+function formToJSON(data: FormData) {
+    const obj: { [k: string]: string } = {};
+    data.forEach((val, key) => {
+        obj[key] = val.toString();
+    });
+    return obj;
+}
+async function fillLanguages(currentEmployee: Employee, languageField: HTMLSelectElement) {
+    languages = await getApi<Language[]>('https://localhost:7080/Language/GetAll/');
     languages.forEach(element => {
         let option = document.createElement('option');
         option.text = element.name;
@@ -75,10 +119,16 @@ async function loading(): Promise<void> {
             option.selected = true;
         languageField.appendChild(option);
     });
+}
 
-    nameField.value = currentEmployee.name;
-    surnameField.value = currentEmployee.surname;
-    ageField.value = currentEmployee.age.toString();
-    genderField.selectedIndex = 0;
-    console.log();
+async function fillDepartments(currentEmployee: Employee, departmentField: HTMLSelectElement) {
+    departments = await getApi<Department[]>('https://localhost:7080/Department/GetAll/');
+    departments.forEach(element => {
+        let option = document.createElement('option');
+        option.text = element.name;
+        option.value = element.id.toString();
+        if (currentEmployee.departmentName == element.name)
+            option.selected = true;
+        departmentField.appendChild(option);
+    });
 }
