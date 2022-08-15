@@ -11,16 +11,35 @@
         <h3>Employee data changes</h3>
         <form>
             <div>
-                <p class="input-title" id="name" name="name">Name:</p><input type="text" /></div>
+                <p class="input-title">Name:</p><input id="name" name="name" type="text" /></div>
             <div>
-                <p class="input-title" id="surname" name="surname">Surname:</p><input type="text" /></div>
+                <p class="input-title">Surname:</p><input id="surname" name="surname" type="text" /></div>
             <div>
-                <p class="input-title" id="age" name="age">Age:</p><input type="text" /></div>
+                <p class="input-title">Age:</p><input id="age" name="age" type="text" /></div>
             <div>
-                <p class="input-title" id="departmentName" name="departmentName">Department:</p><select><option>Value1</option><option>Value2</option><option>Value3</option><option selected>Value4</option><option>Value5</option></select></div>
+                <p class="input-title">Gender:</p>
+                <select id="genderValue" name="genderValue">
+                    <option>Male</option>
+                    <option>Female</option>
+                </select>
+            </div>
             <div>
-                <p class="input-title" id="languageName" name="languageName">Programming language:</p><select><option>Value1</option><option>Value2</option><option>Value3</option><option selected>Value4</option><option>Value5</option></select></div>
-            <div><input type="submit" class="submit-button" value="EDIT"><a class="cancel-button" href="../index.html">Cancel</a></div>
+                <p class="input-title">Department:</p>
+                <select id="departmentName" name="departmentName">
+                </select>
+            </div>
+            <div>
+                <p class="input-title">Programming language:</p>
+                <select id="languageName" name="languageName">
+                    <option>Value1</option><option>Value2</option>
+                    <option>Value3</option><option selected>Value4</option>
+                    <option>Value5</option>
+                </select>
+            </div>
+            <div>
+                <input type="submit" class="submit-button" value="EDIT">
+                <a class="cancel-button" href="../index.html">Cancel</a>
+            </div>
         </form>
     </div>
 </body>

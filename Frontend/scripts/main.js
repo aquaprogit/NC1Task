@@ -8,7 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-function getApi(url) {
+function getApiMain(url) {
     return __awaiter(this, void 0, void 0, function* () {
         return yield fetch(url).then((response) => {
             if (!response.ok) {
@@ -33,7 +33,7 @@ const editToEmployees = new Map();
 function getEmployees() {
     return __awaiter(this, void 0, void 0, function* () {
         let result = [];
-        yield getApi("https://localhost:7080/Employee/GetAll").then((json) => {
+        yield getApiMain("https://localhost:7080/Employee/GetAll").then((json) => {
             result = Object.assign([], json);
             console.log(result);
         });

@@ -1,4 +1,4 @@
-async function getApi<T>(url: string): Promise<T> {
+async function getApiMain<T>(url: string): Promise<T> {
     return await fetch(url).then((response) => {
         if (!response.ok) {
             console.log(response);
@@ -19,7 +19,7 @@ const editToEmployees = new Map<HTMLInputElement, Employee>();
 
 async function getEmployees(): Promise<Employee[]> {
     let result: Employee[] = [];
-    await getApi<Employee[]>("https://localhost:7080/Employee/GetAll").then(
+    await getApiMain<Employee[]>("https://localhost:7080/Employee/GetAll").then(
         (json) => {
             result = Object.assign([], json);
             console.log(result);
