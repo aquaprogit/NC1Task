@@ -28,7 +28,18 @@ function getEmployees() {
         return result;
     });
 }
+function deleteById(url, id) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return yield fetch(url + id.toString(), { method: 'DELETE', }).then((response) => {
+            if (!response.ok)
+                console.log(response);
+            else
+                return response.json();
+        });
+    });
+}
 const controlToEmployees = new Map();
+const buttonToEmployee = new Map();
 function employeeToTableRow(eml) {
     let row = document.createElement('tr');
     let property;
@@ -42,11 +53,23 @@ function employeeToTableRow(eml) {
     buttonEdit.value = 'edit';
     row.appendChild(buttonEdit);
     let buttonDelete = document.createElement('input');
-    buttonDelete.type = 'button';
+    buttonDelete.type = 'submit';
     buttonDelete.value = 'delete';
+    buttonDelete.addEventListener('click', deleteClick);
     controlToEmployees.set(buttonDelete, eml);
     row.appendChild(buttonDelete);
     return row;
+}
+function deleteClick(event) {
+    var _a, _b;
+    return __awaiter(this, void 0, void 0, function* () {
+        let button = event.target;
+        if (button == undefined)
+            return;
+        yield deleteById('https://localhost:7080/Employee/Delete/', (_b = (_a = controlToEmployees.get(button)) === null || _a === void 0 ? void 0 : _a.id) !== null && _b !== void 0 ? _b : -1).then(response => {
+            console.log(response.json());
+        });
+    });
 }
 function newTableCellFromValue(value) {
     let data = document.createElement('td');
