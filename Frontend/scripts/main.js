@@ -18,6 +18,18 @@ function getApi(url) {
         });
     });
 }
+function deleteById(url, id) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return yield fetch(url + id.toString(), { method: 'DELETE' }).then((response) => {
+            if (!response.ok)
+                console.log(response);
+            else
+                return response.json();
+        });
+    });
+}
+const controlToEmployees = new Map();
+const editToEmployees = new Map();
 function getEmployees() {
     return __awaiter(this, void 0, void 0, function* () {
         let result = [];
@@ -28,18 +40,6 @@ function getEmployees() {
         return result;
     });
 }
-function deleteById(url, id) {
-    return __awaiter(this, void 0, void 0, function* () {
-        return yield fetch(url + id.toString(), { method: 'DELETE', }).then((response) => {
-            if (!response.ok)
-                console.log(response);
-            else
-                return response.json();
-        });
-    });
-}
-const controlToEmployees = new Map();
-const buttonToEmployee = new Map();
 function employeeToTableRow(eml) {
     let row = document.createElement('tr');
     let property;
@@ -51,14 +51,24 @@ function employeeToTableRow(eml) {
     let buttonEdit = document.createElement('input');
     buttonEdit.type = 'button';
     buttonEdit.value = 'edit';
+    buttonEdit.addEventListener('click', editClick);
     row.appendChild(buttonEdit);
     let buttonDelete = document.createElement('input');
     buttonDelete.type = 'submit';
     buttonDelete.value = 'delete';
     buttonDelete.addEventListener('click', deleteClick);
     controlToEmployees.set(buttonDelete, eml);
+    editToEmployees.set(buttonEdit, eml);
     row.appendChild(buttonDelete);
     return row;
+}
+function editClick(event) {
+    var _a, _b;
+    return __awaiter(this, void 0, void 0, function* () {
+        let button = event.target;
+        let employeeId = (_b = (_a = editToEmployees.get(button)) === null || _a === void 0 ? void 0 : _a.id) !== null && _b !== void 0 ? _b : -1;
+        window.location.href = "../edit/index.html?id=" + employeeId;
+    });
 }
 function deleteClick(event) {
     var _a, _b;
