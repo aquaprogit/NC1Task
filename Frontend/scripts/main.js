@@ -23,6 +23,7 @@ class Employee {
         this.name = "";
         this.surname = "";
         this.age = 1;
+        this.genderValue = "";
         this.departmentName = "";
         this.languageName = "";
     }
@@ -37,6 +38,32 @@ function getEmployees() {
         return result;
     });
 }
-getEmployees().then((_) => {
-    console.log("heeheheh");
+function employeeToTableRow(eml) {
+    let row = document.createElement('tr');
+    let property;
+    for (property in eml) {
+        if (property == 'id')
+            continue;
+        row.appendChild(newTableCellFromValue(eml[property].toString()));
+    }
+    let buttonEdit = document.createElement('input');
+    buttonEdit.type = 'button';
+    buttonEdit.value = 'edit';
+    row.appendChild(buttonEdit);
+    let buttonDelete = document.createElement('input');
+    buttonDelete.type = 'button';
+    buttonDelete.value = 'delete';
+    row.appendChild(buttonDelete);
+    return row;
+}
+function newTableCellFromValue(value) {
+    let data = document.createElement('td');
+    data.innerText = value;
+    return data;
+}
+getEmployees().then((employees) => {
+    let table = document.getElementById("content-table");
+    employees.forEach(element => {
+        table.appendChild(employeeToTableRow(element));
+    });
 });

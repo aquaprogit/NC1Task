@@ -11,34 +11,19 @@
     <div class="container">
         <h2>List of employees</h2>
         <table>
-            <tr>
-                <th>Name</th>
-                <th>Surname</th>
-                <th>Age</th>
-                <th>Gender</th>
-                <th>Department</th>
-                <th>Programming language</th>
-                <th class="action-column"></th>
-            </tr>
-            <tr>
-                <td>Vlad</td>
-                <td>NeVlad</td>
-
-            </tr>
-            <tr>
-                <td>Nastya</td>
-                <td>NeNastya</td>
-                <td>18</td>
-                <td>Female</td>
-                <td>Readers</td>
-                <td>Java</td>
-                <td>
-                    <div>
-                        <input type="button" value="edit" />
-                        <input type="button" value="delete" />
-                    </div>
-                </td>
-            </tr>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Department</th>
+                    <th>Programming language</th>
+                    <th class="action-column">Action</th>
+                </tr>
+            </thead>
+            <tbody id="content-table">
+            </tbody>
         </table>
     </div>
 </body>
