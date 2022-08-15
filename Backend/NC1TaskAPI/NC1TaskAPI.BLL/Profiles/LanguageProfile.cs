@@ -9,6 +9,6 @@ public class LanguageProfile : Profile
     public LanguageProfile()
     {
         CreateMap<DisplayLanguageDTO, ProgrammingLanguage>().ReverseMap();
-        CreateMap<LanguageDTO, ProgrammingLanguage>();
+        CreateMap<LanguageDTO, ProgrammingLanguage>().ReverseMap();
     }
 }

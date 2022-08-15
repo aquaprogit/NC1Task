@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 
+using Microsoft.EntityFrameworkCore;
+
 using NC1TaskAPI.BLL.DTO;
 using NC1TaskAPI.BLL.Services.Interfaces;
 using NC1TaskAPI.DAL.Entities;
@@ -36,12 +38,16 @@ public class DepartmentService : IDepartmentService
     {
         var same = await _repo.FindAsync(department.Id);
         if (same == null)
-            _repo.Add(_mapper.Map<Department>(same));
+        {
+            _repo.Add(_mapper.Map<Department>(department));
+        }
         else
+        {
             _repo.Update(same);
+        }
     }
     public async Task<List<DisplayDepartmentDTO>> GetAllDepartment()
     {
-        return await Task.Run(() => _repo.GetAll().Select(dep => _mapper.Map<DisplayDepartmentDTO>(dep)).ToList());
+        return await Task.Run(() => _repo.Table.Include(dep => dep.Employees).ThenInclude(emp => emp.Language).Select(dep => _mapper.Map<DisplayDepartmentDTO>(dep)).ToList());
     }
 }

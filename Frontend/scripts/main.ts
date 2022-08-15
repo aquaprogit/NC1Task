@@ -6,16 +6,7 @@ async function getApi<T>(url: string): Promise<T> {
         return response.json();
     });
 }
-class Employee {
-    id: number = 0;
-    name: string = "";
-    surname: string = "";
-    age: number = 1;
-    genderValue: string = "";
-    departmentName: string = "";
-    languageName: string = "";
-}
-async function getEmployees() {
+async function getEmployees(): Promise<Employee[]> {
     let result: Employee[] = [];
     await getApi<Employee[]>("https://localhost:7080/Employee/GetAll").then(
         (json) => {
@@ -43,21 +34,10 @@ function employeeToTableRow(eml: Employee): HTMLTableRowElement {
     let buttonDelete = document.createElement('input');
     buttonDelete.type = 'button';
     buttonDelete.value = 'delete';
-    buttonDelete.addEventListener('click', deleteEmployee);
     controlToEmployees.set(buttonDelete, eml);
     row.appendChild(buttonDelete);
 
     return row;
-}
-function deleteEmployee(event: Event) {
-    if (event != null && event.target != null) {
-        let id = controlToEmployees.get(event.target as HTMLInputElement)?.id;
-        if (id == undefined)
-            return;
-        getApi("https://localhost:7080/Employee/Delete/" + id.toString()).then((json) => {
-            console.log(json);
-        });
-    }
 }
 function newTableCellFromValue(value: string) {
     let data = document.createElement('td');

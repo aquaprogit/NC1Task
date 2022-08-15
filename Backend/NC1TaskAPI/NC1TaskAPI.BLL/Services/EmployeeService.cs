@@ -41,11 +41,16 @@ public class EmployeeService : IEmployeeService
     }
     public async Task PutEmployee(EmployeeDTO employee)
     {
-        var mapped = _mapper.Map<Employee>(employee);
-        var same = _repo.Table.SingleOrDefault(emp => emp.Id == mapped.Id);
+        var same = await _repo.FindAsync(employee.Id);
+        var entity = _mapper.Map<Employee>(employee);
         if (same == null)
-            await _repo.AddAsync(mapped);
+        {
+            _repo.Add(entity);
+        }
         else
-            _repo.Update(mapped);
+        {
+            
+            _repo.Update(same);
+        }
     }
 }

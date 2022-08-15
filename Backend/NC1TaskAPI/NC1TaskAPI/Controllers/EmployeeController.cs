@@ -6,7 +6,6 @@ using NC1TaskAPI.BLL.Services.Interfaces;
 
 namespace NC1TaskAPI.Controllers;
 [ApiController]
-[EnableCors("CorsApi")]
 [Route("[controller]")]
 public class EmployeeController : ControllerBase
 {
@@ -15,7 +14,6 @@ public class EmployeeController : ControllerBase
     {
         _employeeService = employeeService;
     }
-
     [HttpGet("[action]/")]
     public async Task<IActionResult> GetAll()
     {

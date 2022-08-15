@@ -17,13 +17,13 @@ public class LanguageService : ILanguageService
         _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
     }
 
-    public async Task<List<DisplayLanguageDTO>> GetLanguages()
+    public async Task<List<LanguageDTO>> GetLanguages()
     {
-        return await Task.Run(() => _mapper.Map<IEnumerable<DisplayLanguageDTO>>(_repo.GetAll()).ToList());
+        return await Task.Run(() => _mapper.Map<IEnumerable<LanguageDTO>>(_repo.GetAll()).ToList());
     }
-    public async Task<DisplayLanguageDTO> GetLanguage(int id)
+    public async Task<LanguageDTO> GetLanguage(int id)
     {
-        return _mapper.Map<DisplayLanguageDTO>(await _repo.FindAsync(id));
+        return _mapper.Map<LanguageDTO>(await _repo.FindAsync(id));
     }
     public async Task AddLanguage(DisplayLanguageDTO language)
     {

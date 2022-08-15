@@ -5,7 +5,7 @@ public interface ILanguageService
 {
     Task AddLanguage(DisplayLanguageDTO language);
     Task<bool> DeleteLanguage(int id);
-    Task<DisplayLanguageDTO> GetLanguage(int id);
-    Task<List<DisplayLanguageDTO>> GetLanguages();
+    Task<LanguageDTO> GetLanguage(int id);
+    Task<List<LanguageDTO>> GetLanguages();
     Task PutLanguage(LanguageDTO language);
 }
