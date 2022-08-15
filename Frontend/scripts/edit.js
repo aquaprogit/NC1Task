@@ -26,6 +26,12 @@ class Department {
         this.floor = 0;
     }
 }
+class Language {
+    constructor() {
+        this.id = 0;
+        this.name = "";
+    }
+}
 function getEmployeeById(id) {
     return __awaiter(this, void 0, void 0, function* () {
         let result = new Employee();
@@ -57,6 +63,10 @@ function loading() {
             departments = res;
             console.log(departments);
         });
+        yield getApi('https://localhost:7080/Language/GetAll/').then(res => {
+            languages = res;
+            console.log(languages);
+        });
         const currentEmployeeId = parseInt((_a = url.searchParams.get("id")) !== null && _a !== void 0 ? _a : "-1");
         console.log('current employee\'s id: ' + currentEmployeeId);
         var currentEmployee = yield getEmployeeById(currentEmployeeId);
@@ -64,15 +74,23 @@ function loading() {
         let surnameField = document.getElementById('surname');
         let ageField = document.getElementById('age');
         let genderField = document.getElementById('genderValue');
-        let departmentName = document.getElementById('departmentName');
-        let languageName = document.getElementById('languageName');
+        let departmentField = document.getElementById('departmentName');
+        let languageField = document.getElementById('languageName');
         departments.forEach(element => {
             let option = document.createElement('option');
             option.text = element.name;
             option.value = element.id.toString();
             if (currentEmployee.departmentName == element.name)
                 option.selected = true;
-            departmentName.appendChild(option);
+            departmentField.appendChild(option);
+        });
+        languages.forEach(element => {
+            let option = document.createElement('option');
+            option.text = element.name;
+            option.value = element.id.toString();
+            if (currentEmployee.languageName == element.name)
+                option.selected = true;
+            languageField.appendChild(option);
         });
         nameField.value = currentEmployee.name;
         surnameField.value = currentEmployee.surname;
