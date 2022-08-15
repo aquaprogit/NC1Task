@@ -4,9 +4,15 @@ using NC1TaskAPI.BLL.Services.Interfaces;
 using NC1TaskAPI.BLL.Services;
 using NC1TaskAPI.DAL.Repos;
 using NC1TaskAPI.DAL.Repos.Interfaces;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddCors(options => {
+    options.AddPolicy("CorsApi",
+        builder => builder.WithOrigins("http://localhost:5500", "http://127.0.0.1:5500/")
+            .AllowAnyHeader()
+            .AllowAnyMethod());
+});
 builder.Services.AddCors();
 //Mappers
 builder.Services.AddAutoMapper(typeof(EmployeeProfile));
@@ -33,6 +39,7 @@ var app = builder.Build();
 
 app.UseCors(builder => builder
     .AllowAnyOrigin()
+    .SetIsOriginAllowed(or => or == "http://127.0.0.1:5500/")
     .AllowAnyMethod()
     .AllowAnyHeader());
 
@@ -44,7 +51,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-
+app.UseCors("CorsApi");
+app.UseCors("AllowAll");
 app.UseAuthorization();
 
 app.MapControllers();

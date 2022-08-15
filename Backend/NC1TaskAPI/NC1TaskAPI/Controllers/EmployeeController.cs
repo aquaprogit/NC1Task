@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
 
 using NC1TaskAPI.BLL.DTO;
 using NC1TaskAPI.BLL.Services.Interfaces;
 
 namespace NC1TaskAPI.Controllers;
 [ApiController]
+[EnableCors("CorsApi")]
 [Route("[controller]")]
 public class EmployeeController : ControllerBase
 {

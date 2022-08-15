@@ -12,7 +12,7 @@ function getApi(url) {
     return __awaiter(this, void 0, void 0, function* () {
         return yield fetch(url).then((response) => {
             if (!response.ok) {
-                console.log("error");
+                console.log(response);
             }
             return response.json();
         });
@@ -20,6 +20,7 @@ function getApi(url) {
 }
 class Employee {
     constructor() {
+        this.id = 0;
         this.name = "";
         this.surname = "";
         this.age = 1;
@@ -38,6 +39,7 @@ function getEmployees() {
         return result;
     });
 }
+const controlToEmployees = new Map();
 function employeeToTableRow(eml) {
     let row = document.createElement('tr');
     let property;
@@ -53,8 +55,21 @@ function employeeToTableRow(eml) {
     let buttonDelete = document.createElement('input');
     buttonDelete.type = 'button';
     buttonDelete.value = 'delete';
+    buttonDelete.addEventListener('click', deleteEmployee);
+    controlToEmployees.set(buttonDelete, eml);
     row.appendChild(buttonDelete);
     return row;
+}
+function deleteEmployee(event) {
+    var _a;
+    if (event != null && event.target != null) {
+        let id = (_a = controlToEmployees.get(event.target)) === null || _a === void 0 ? void 0 : _a.id;
+        if (id == undefined)
+            return;
+        getApi("https://localhost:7080/Employee/Delete/" + id.toString()).then((json) => {
+            console.log(json);
+        });
+    }
 }
 function newTableCellFromValue(value) {
     let data = document.createElement('td');
