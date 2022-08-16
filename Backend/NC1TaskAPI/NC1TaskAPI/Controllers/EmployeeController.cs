@@ -55,4 +55,17 @@ public class EmployeeController : ControllerBase
             return BadRequest(employee);
         }
     }
+    [HttpGet("[action]/")]
+    public async Task<IActionResult> GetEmployeesByLanguage(int languageId)
+    {
+        try
+        {
+            var result = await _employeeService.GetEmployeesByLanguage(languageId);
+            return Ok(result);
+        }
+        catch (Exception)
+        {
+            return BadRequest(languageId);
+        }
+    }
 }

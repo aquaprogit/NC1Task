@@ -61,4 +61,8 @@ public class EmployeeService : IEmployeeService
             _repo.Update(same);
         }
     }
+    public async Task<List<DisplayEmployeeDTO>> GetEmployeesByLanguage(int languageId)
+    {
+        return _mapper.Map<IEnumerable<DisplayEmployeeDTO>>((await _repo.GetEmployeesWithLanguage(languageId)).AsEnumerable()).ToList();
+    }
 }
