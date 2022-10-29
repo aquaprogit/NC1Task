@@ -3,8 +3,7 @@
 namespace NC1TaskAPI.DAL.Entities;
 public class Employee
 {
-    [Key]
-    public int Id { get; set; }
+    [Key] public int Id { get; set; } = 1;
 
     [Required]
     [StringLength(50, MinimumLength = 2)]
