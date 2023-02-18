@@ -19,6 +19,7 @@ public class ApplicationContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlServer("Server=(local);Database=artsofteworking;Trusted_Connection=True;TrustServerCertificate=True\r\n");
+
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

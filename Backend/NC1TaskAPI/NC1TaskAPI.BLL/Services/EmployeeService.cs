@@ -54,7 +54,7 @@ public class EmployeeService : IEmployeeService
             same.Name = employee.Name;
             same.Surname = employee.Surname;
             same.Age = employee.Age;
-            same.Gender = employee.Gender;
+            same.Gender = (Gender)employee.Gender;
             same.DepartmentId = employee.DepartmentId;
             same.LanguageId = employee.LanguageId;
             _repo.Table.Include(emp => emp.Department).Include(emp => emp.Language);

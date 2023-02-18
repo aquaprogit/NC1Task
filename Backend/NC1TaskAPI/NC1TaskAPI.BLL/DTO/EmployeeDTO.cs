@@ -7,18 +7,12 @@ public class EmployeeDTO
 {
     [Key]
     public int Id { get; set; }
-    [Required]
-    [StringLength(50, MinimumLength = 2)]
-    public string Name { get; set; } = string.Empty;
+    public string Name { get; set; }
 
-    [Required]
-    [StringLength(50, MinimumLength = 2)]
-    public string Surname { get; set; } = string.Empty;
+    public string Surname { get; set; }
 
-    [Required]
-    [Range(14, int.MaxValue)]
-    public int Age { get; set; } = 1;
-    public Gender Gender { get; set; } = Gender.Male;
+    public int Age { get; set; }
+    public int Gender { get; set; }
     public int DepartmentId { get; set; }
     public int LanguageId { get; set; }
 }
