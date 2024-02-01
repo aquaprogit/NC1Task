@@ -5,7 +5,7 @@ using NC1TaskAPI.BLL.Services.Interfaces;
 namespace NC1TaskAPI.Controllers;
 
 [ApiController]
-[Route("[controller]/")]
+[Route("[controller]")]
 public class LanguageController : ControllerBase
 {
     private readonly ILanguageService _languageService;
@@ -19,7 +19,7 @@ public class LanguageController : ControllerBase
     {
         return Ok(await _languageService.GetLanguages());
     }
-    [HttpGet]
+    [HttpGet("{id}")]
     public async Task<IActionResult> Get(int id)
     {
         return Ok(await _languageService.GetLanguage(id));
