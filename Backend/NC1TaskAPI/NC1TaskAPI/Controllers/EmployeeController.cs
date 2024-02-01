@@ -14,17 +14,17 @@ public class EmployeeController : ControllerBase
     {
         _employeeService = employeeService;
     }
-    [HttpGet("[action]/")]
+    [HttpGet]
     public async Task<IActionResult> GetAll()
     {
         return Ok(await _employeeService.GetAllEmployees());
     }
-    [HttpGet("[action]/{id}")]
+    [HttpGet("{id}")]
     public async Task<IActionResult> Get(int id)
     {
         return Ok(await _employeeService.GetEmployee(id));
     }
-    [HttpPost("[action]/")]
+    [HttpPost]
     public async Task<IActionResult> AddNew([FromBody] NewEmployeeDTO employee)
     {
         try
@@ -37,12 +37,12 @@ public class EmployeeController : ControllerBase
             return BadRequest(employee);
         }
     }
-    [HttpDelete("[action]/{id}")]
+    [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
         return await _employeeService.DeleteEmployee(id) ? Ok() : NotFound();
     }
-    [HttpPut("[action]/")]
+    [HttpPut]
     public async Task<IActionResult> Put([FromBody] EmployeeDTO employee)
     {
         try
@@ -53,19 +53,6 @@ public class EmployeeController : ControllerBase
         catch (Exception)
         {
             return BadRequest(employee);
-        }
-    }
-    [HttpGet("[action]/")]
-    public async Task<IActionResult> GetEmployeesByLanguage(int languageId)
-    {
-        try
-        {
-            var result = await _employeeService.GetEmployeesByLanguage(languageId);
-            return Ok(result);
-        }
-        catch (Exception)
-        {
-            return BadRequest(languageId);
         }
     }
 }

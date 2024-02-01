@@ -1,12 +1,9 @@
-﻿using AutoMapper;
-
-using Microsoft.AspNetCore.Mvc;
-
+﻿using Microsoft.AspNetCore.Mvc;
 using NC1TaskAPI.BLL.DTO;
-using NC1TaskAPI.BLL.Services;
 using NC1TaskAPI.BLL.Services.Interfaces;
 
 namespace NC1TaskAPI.Controllers;
+
 [ApiController]
 [Route("[controller]/")]
 public class LanguageController : ControllerBase
@@ -17,28 +14,28 @@ public class LanguageController : ControllerBase
     {
         _languageService = languageService ?? throw new ArgumentNullException(nameof(languageService));
     }
-    [HttpGet("[action]/")]
+    [HttpGet]
     public async Task<IActionResult> GetAll()
     {
         return Ok(await _languageService.GetLanguages());
     }
-    [HttpGet("[action]/{id}")]
+    [HttpGet]
     public async Task<IActionResult> Get(int id)
     {
         return Ok(await _languageService.GetLanguage(id));
     }
-    [HttpPost("[action]/")]
+    [HttpPost]
     public async Task<IActionResult> AddNew([FromBody] DisplayLanguageDTO language)
     {
         await _languageService.AddLanguage(language);
         return Ok();
     }
-    [HttpDelete("[action]/{id}")]
+    [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
         return await _languageService.DeleteLanguage(id) ? Ok() : NotFound();
     }
-    [HttpPut("[action]/")]
+    [HttpPut]
     public async Task<IActionResult> Put([FromBody] LanguageDTO language)
     {
         await _languageService.PutLanguage(language);

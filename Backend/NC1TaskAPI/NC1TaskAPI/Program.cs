@@ -4,7 +4,9 @@ using NC1TaskAPI.BLL.Services.Interfaces;
 using NC1TaskAPI.BLL.Services;
 using NC1TaskAPI.DAL.Repos;
 using NC1TaskAPI.DAL.Repos.Interfaces;
-using System;
+using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using NC1TaskAPI.Utility;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors();
@@ -24,10 +26,34 @@ builder.Services.AddScoped<IDepartmentService, DepartmentService>();
 builder.Services.AddScoped<ILanguageService, LanguageService>();
 
 //Controllers
-builder.Services.AddControllers();
+builder.Services.AddControllers(options => options.Conventions.Add(new RouteTokenTransformerConvention(new SlugifyParameterTransformer())));
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "DogAPI", Version = "v1" });
+
+    c.AddSecurityDefinition("Bearer",
+        new OpenApiSecurityScheme
+        {
+            Description = "Standard Authorization header using the Bearer scheme. Example: \"bearer {token}\"",
+            In = ParameterLocation.Header,
+            Name = "Authorization",
+            Type = SecuritySchemeType.ApiKey
+        });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
+            },
+            Array.Empty<string>()
+        }
+    });
+});
 
 var app = builder.Build();
 

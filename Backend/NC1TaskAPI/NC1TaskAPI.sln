@@ -1,9 +1,9 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32804.467
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NC1TaskAPI", "NC1TaskAPI\NC1TaskAPI.csproj", "{109B199E-A0E1-44C3-94B9-443DDFC470E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NC1TaskAPI", "NC1TaskAPI\NC1TaskAPI.csproj", "{109B199E-A0E1-44C3-94B9-443DDFC470E0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8BAC65B7-70ED-4DA3-924F-8BB49EC064C8}"
 	ProjectSection(SolutionItems) = preProject
